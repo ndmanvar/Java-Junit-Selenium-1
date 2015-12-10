@@ -4,7 +4,9 @@ package com.yourcompany.Tests;
 import com.yourcompany.Pages.*;
 import com.yourcompany.TestRules.Retry;
 import com.yourcompany.Tests.SampleSauceTestBase;
+
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.InvalidElementStateException;
 
 import java.util.UUID;
@@ -28,54 +30,19 @@ public class SampleSauceTextInputTest extends SampleSauceTestBase {
      * @throws InvalidElementStateException
      */
     @Test
-    public void verifyEmailInputTest() throws InvalidElementStateException {
+    public void verifyEmailInputTest() throws InvalidElementStateException, InterruptedException {
         String emailInputText = "abc@gmail.com";
 
         // Navigate to the page
-        driver.get("https://saucelabs.com/test/guinea-pig");
+        driver.get("http://www.carnival.com/?optimizely_opt_out=true&facx=faclegacy");
 
-        // get page object
-        GuineaPigPage page = GuineaPigPage.getPage(driver);
+        Alert alert = driver.switchTo().alert();
 
-        /*
-         enterEmailText page is an exposed "service",
-             which interacts with the email input field element by sending text to it.
-        */
-        page.enterEmailText(emailInputText);
+        alert.accept();
 
-        /*
-         Assertions should be part of test and not part of Page object.
-         Each test should be verifying one piece of functionality (atomic testing)
-        */
-        assertEquals(page.getEmailText(), emailInputText);
+        Thread.sleep(5000);
 
     }
 
-    /**
-     * Runs a simple test verifying if the comment input is functional.
-     * @throws InvalidElementStateException
-     */
-    @Test
-    @Retry
-    public void verifyCommentInputTest() throws InvalidElementStateException {
-        String commentInputText = UUID.randomUUID().toString();
 
-        driver.get("https://saucelabs.com/test/guinea-pig");
-
-        // Navigate to the page
-        GuineaPigPage page = GuineaPigPage.getPage(driver);
-
-        /*
-         enterCommentText page is an exposed "service",
-             which interacts with the email input field element by sending text to it.
-        */
-        page.enterCommentText(commentInputText);
-
-        /*
-         Assertions should be part of test and not part of Page object.
-         Each test should be verifying one piece of functionality (atomic testing)
-        */
-        assertEquals(commentInputText, page.getCommentText());
-
-    }
 }
